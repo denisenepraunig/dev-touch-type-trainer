@@ -11,7 +11,7 @@ import SwiftUI
 struct dev_type_trainerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().preferredColorScheme(.dark)
         }
     }
 }

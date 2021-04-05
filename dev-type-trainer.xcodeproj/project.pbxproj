@@ -11,6 +11,7 @@
 		9FD16C61261B261700AD0918 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD16C60261B261700AD0918 /* ContentView.swift */; };
 		9FD16C63261B261800AD0918 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FD16C62261B261800AD0918 /* Assets.xcassets */; };
 		9FD16C66261B261800AD0918 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FD16C65261B261800AD0918 /* Preview Assets.xcassets */; };
+		9FD16C7C261B515600AD0918 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD16C7B261B515600AD0918 /* Data.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		9FD16C65261B261800AD0918 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9FD16C67261B261800AD0918 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FD16C68261B261800AD0918 /* dev_type_trainer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dev_type_trainer.entitlements; sourceTree = "<group>"; };
+		9FD16C7B261B515600AD0918 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			children = (
 				9FD16C5E261B261700AD0918 /* dev_type_trainerApp.swift */,
 				9FD16C60261B261700AD0918 /* ContentView.swift */,
+				9FD16C7B261B515600AD0918 /* Data.swift */,
 				9FD16C62261B261800AD0918 /* Assets.xcassets */,
 				9FD16C67261B261800AD0918 /* Info.plist */,
 				9FD16C68261B261800AD0918 /* dev_type_trainer.entitlements */,
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9FD16C61261B261700AD0918 /* ContentView.swift in Sources */,
+				9FD16C7C261B515600AD0918 /* Data.swift in Sources */,
 				9FD16C5F261B261700AD0918 /* dev_type_trainerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

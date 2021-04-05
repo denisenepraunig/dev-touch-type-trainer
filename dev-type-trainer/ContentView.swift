@@ -9,99 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var fingerIndex = 0
-    @State private var character: Character = "["
+    @State private var character: Character = " "
     @State var shiftKey = false
 
     @State var previousCharacter: Character = " "
     @State var previousFinger: Int?
 
-    enum FingerNames: Int, CaseIterable {
-        case rightPinky = 0
-        case rightRingFinger
-        case rightMiddleFinger
-        case rightIndexFinger
-        case leftIndexFinger
-        case leftMiddleFinger
-        case leftRingFinger
-        case leftPinky
-    }
-
-    let colorMatcher: [Int: Color] = [
-        0: .blue,
-        1: .green,
-        2: .yellow,
-        3: .orange,
-        4: .orange,
-        5: .yellow,
-        6: .green,
-        7: .blue
-    ]
-
-//    let fingerCharacter: [FingerNames: [Character]] = [
-//        .rightPinky: ["`", "~", "1", "!"],
-//        .rightRingFinger: ["2", "@"],
-//        .rightMiddleFinger: ["3", "#"],
-//        .rightIndexFinger: ["4", "$", "5", "%"],
-//        .leftIndexFinger: ["6", "^", "7", "&"],
-//            .leftMiddleFinger: ["8", "*", ",", "<"],
-//        .leftRingFinger: ["9", "(", ".", ">"],
-//        .leftPinky: ["0", ")", "-", "_", "=", "+", "[", "{", "]", "}", "\\", "|", ";", ":", "'", "\"", "/", "?"]
-//    ]
-
-    let fingerCharactersShift: [FingerNames: [(Character, Bool)]] = [
-        .rightPinky: [
-            ("`", false),
-            ("~", true),
-            ("1", false),
-            ("!", false)],
-        .rightRingFinger: [
-            ("2", false),
-            ("@", true)],
-        .rightMiddleFinger: [
-            ("3", false),
-            ("#", true)],
-        .rightIndexFinger: [
-            ("4", false),
-            ("$", true),
-            ("5", false),
-            ("%", true)],
-        .leftIndexFinger: [
-            ("6", false),
-            ("^", true),
-            ("7", false),
-            ("&", true)],
-        .leftMiddleFinger: [
-            ("8", false),
-            ("*", true),
-            (",", false),
-            ("<", true)],
-        .leftRingFinger: [
-            ("9", false),
-            ("(", true),
-            (".", false),
-            (">", true)],
-        .leftPinky: [
-            ("0", false),
-            (")", true),
-            ("-", false),
-            ("_", true),
-            ("=", false),
-            ("+", true),
-            ("[", false),
-            ("{", true),
-            ("]", false),
-            ("}", true),
-            ("\\", false),
-            ("|", true),
-            (";", false),
-            (":", true),
-            ("'", false),
-            ("\"", true),
-            ("/", false),
-            ("?", true)]
-    ]
-
     private func generateRandomCharacter() {
+        // .0 and .1 tuple could be a better data structure
+        // but it was faster when prototyping
+
         let fingerAndValues = fingerCharactersShift.randomElement()
         let finger = fingerAndValues!.key
         let characterAndShift = fingerAndValues!.value.randomElement()!
@@ -109,7 +26,6 @@ struct ContentView: View {
 
         // not the same finger again
         if previousFinger == finger.rawValue {
-            print("same finger!!")
             generateRandomCharacter()
             return
         }
@@ -122,59 +38,49 @@ struct ContentView: View {
         previousFinger = fingerIndex
     }
 
-//    let symbols: [Character] = ["[", "]", "{", "}", "=", "+", ",", "<", ".", ">", "/", "?", "-", "_", "!", "\\", "|", ";", ":", "\"", "\'", "@", "#", "$", "%", "&", "*", "(", ")", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
-
-    let hints: [Character: String] = [
-        "~": "tilde",
-//        "!": "1",
-//        "@": "2",
-//        "#": "3",
-//        "$": "4",
-//        "%": "5",
-        "^": "circumflex",
-//        "&": "7",
-//        "*": "8",
-//        "(": "9",
-//        ")": "0",
-        "_": "underscore",
-        "-": "minus",
-        "`": "backtick",
-        "'": "single quote",
-        "\"": "double quote",
-        ",": "comma",
-        ".": "dot",
-        "/": "slash",
-        "\\": "backslash",
-        "|": "pipe",
-        ":": "colon",
-        ";": "semicolon"
-    ]
-
     var hintText: String {
-        hints[character] ?? " "
-    }
-
-    func colorForCircle(index: Int) -> Color {
-        if index == fingerIndex {
-            return colorMatcher[index] ?? Color.clear
-        } else {
-            return Color.clear
-        }
+        charachterHints[character] ?? " "
     }
 
     var body: some View {
         VStack {
-            Text("Dev Touch Type Trainer")
-                .font(.title    )
-                .padding()
+            VStack {
+                Text("Dev Touch Type Trainer")
+                    .font(.title)
+
+                Text("QWERTY US Layout")
+                    .font(.footnote)
+                    .padding(.top)
+            }
+            .padding()
 
             Text(String(character))
                 .font(.largeTitle)
                 .padding()
-                .foregroundColor(.purple )
+                .foregroundColor(.purple)
+                .frame(minWidth: 75, minHeight: 75)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .strokeBorder(Color.purple, lineWidth: 1)
+                )
 
             Text(hintText)
+                .font(.title3)
                 .padding()
+
+            HStack {
+                HandView(from: 0, to: 4, text: "Left Hand", fingerIndex: $fingerIndex)
+                // maybe a geometry reader here for the height?!
+                Rectangle()
+                    .frame(width: 1, height: 50)
+                    .foregroundColor(.gray)
+                    .padding()
+                HandView(from: 4, to: 8, text: "Right Hand", fingerIndex: $fingerIndex)
+
+            }
+            .padding()
+
+            shiftKeyView
 
             Button(String(character), action: {
                 generateRandomCharacter()
@@ -182,36 +88,88 @@ struct ContentView: View {
             // we don't want to see that button, we just want it's modifier keys
             .opacity(0)
             .keyboardShortcut(KeyEquivalent(character), modifiers: [])
-
-            HStack {
-                ForEach(0..<8) { index in
-                    if index == 4 {
-                        shiftKeyView
-                    }
-                    Circle()
-                        .strokeBorder(Color.gray, lineWidth: 1)
-                        .background(Circle().foregroundColor(colorForCircle(index: index)))
-                        .frame(width: 20, height: 20)
-                }
-            }
-            .padding()
         }
-        .frame(minWidth: 400, idealWidth: 400, maxWidth: 400, minHeight: 400, idealHeight: 400, maxHeight: 400, alignment: .center)
+        .frame(minWidth: 400, idealWidth: 400, maxWidth: 400, minHeight: 500, idealHeight: 500, maxHeight: 500, alignment: .center)
         .onAppear {
             generateRandomCharacter()
         }
     }
 
+    struct HandView: View {
+        var from: Int
+        var to: Int
+        var text: String
+        @Binding var fingerIndex: Int
+
+        var body: some View {
+            VStack {
+                HStack {
+                    ForEach(from..<to) { index in
+                        FingerCircleView(index: index, fingerIndex: $fingerIndex)
+                    }
+                }
+                Text(text)
+            }
+        }
+    }
+
+    struct FingerCircleView: View {
+        var index: Int
+        @Binding var fingerIndex: Int
+
+        func colorForCircle(index: Int) -> Color {
+            if index == fingerIndex {
+                return plainColorMatcher[index] ?? Color.clear
+//                return colorMatcher[index] ?? Color.clear
+            } else {
+                return Color.clear
+            }
+        }
+
+        func colorForText(index: Int) -> Color {
+            return index == fingerIndex ? Color.black : Color.gray
+        }
+
+        func textForCircle(index: Int) -> String {
+            return fingerMatcher[index] ?? ""
+        }
+
+        func strokeColorForCircle(index: Int) -> Color {
+            return index == fingerIndex ? Color.clear : Color.gray
+        }
+
+        var body: some View {
+            Circle()
+                .strokeBorder(strokeColorForCircle(index: index), lineWidth: 1)
+                .background(Circle().foregroundColor(colorForCircle(index: index)))
+                .frame(width: 25, height: 25)
+                .overlay(
+                    Text(textForCircle(index: index))
+                        .foregroundColor(colorForText(index: index))
+                )
+        }
+    }
     private var shiftKeyView: some View {
-        RoundedRectangle(cornerRadius: 4)
-            .strokeBorder(Color.gray, lineWidth: 1)
+
+        func colorForRectangle() -> Color {
+            if shiftKey {
+                return plainColorMatcher[fingerIndex] ?? Color.clear
+//                return colorMatcher[fingerIndex] ?? Color.clear
+            } else {
+                return Color.clear
+            }
+        }
+
+        return RoundedRectangle(cornerRadius: 4)
+            .strokeBorder(shiftKey ? Color.clear : Color.gray, lineWidth: 1)
             .background(
                 RoundedRectangle(cornerRadius: 4)
-                    .foregroundColor(shiftKey ? Color.gray.opacity(0.5) : Color.clear))
+                    .foregroundColor(colorForRectangle())
+            )
             .overlay(
                 Text("SHIFT")
                     .font(.footnote)
-                    .foregroundColor(shiftKey ? .white : .gray)
+                    .foregroundColor(shiftKey ? .black : .gray)
             )
             .frame(width: 60, height: 20)
             .padding(.horizontal)
