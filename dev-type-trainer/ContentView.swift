@@ -56,12 +56,13 @@ struct ContentView: View {
 
             Text(String(character))
                 .font(.largeTitle)
+                .scaleEffect(1.5)
                 .padding()
                 .foregroundColor(.purple)
                 .frame(minWidth: 75, minHeight: 75)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .strokeBorder(Color.purple, lineWidth: 1)
+                        .strokeBorder(Color.purple, lineWidth: 2)
                 )
 
             Text(hintText)
