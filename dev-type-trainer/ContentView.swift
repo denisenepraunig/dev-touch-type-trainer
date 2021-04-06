@@ -11,18 +11,19 @@ struct ContentView: View {
     @State private var fingerIndex = 0
     @State private var character: Character = " "
     @State var shiftKey = false
+    @State var characterHint = " "
 
     @State var previousCharacter: Character = " "
     @State var previousFinger: Int?
 
     private func generateRandomCharacter() {
-        // .0 and .1 tuple could be a better data structure
-        // but it was faster when prototyping
+        // .0, .1 and .2 could be a better data structure
+        // but it was faster when prototyping :-)
 
         let fingerAndValues = fingerCharactersShift.randomElement()
         let finger = fingerAndValues!.key
-        let characterAndShift = fingerAndValues!.value.randomElement()!
-        let newCharacter = characterAndShift.0
+        let characterEntry = fingerAndValues!.value.randomElement()!
+        let newCharacter = characterEntry.0
 
         // not the same finger again
         if previousFinger == finger.rawValue {
@@ -32,14 +33,11 @@ struct ContentView: View {
 
         character = newCharacter
         fingerIndex = finger.rawValue
-        shiftKey = characterAndShift.1
+        shiftKey = characterEntry.1
+        characterHint = characterEntry.2
 
         previousCharacter = character
         previousFinger = fingerIndex
-    }
-
-    var hintText: String {
-        charachterHints[character] ?? " "
     }
 
     var body: some View {
@@ -65,7 +63,7 @@ struct ContentView: View {
                         .strokeBorder(Color.purple, lineWidth: 2)
                 )
 
-            Text(hintText)
+            Text(characterHint)
                 .font(.title3)
                 .padding()
 

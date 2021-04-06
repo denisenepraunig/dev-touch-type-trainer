@@ -52,109 +52,61 @@ let fingerMatcher: [Int: String] = [
     7: "P"
 ]
 
-let fingerCharactersShift: [FingerNames: [(Character, Bool)]] = [
-    .rightPinky: [
-        ("`", false),
-        ("~", true),
-        ("1", false),
-        ("!", true)],
-    .rightRingFinger: [
-        ("2", false),
-        ("@", true)],
-    .rightMiddleFinger: [
-        ("3", false),
-        ("#", true)],
-    .rightIndexFinger: [
-        ("4", false),
-        ("$", true),
-        ("5", false),
-        ("%", true)],
-    .leftIndexFinger: [
-        ("6", false),
-        ("^", true),
-        ("7", false),
-        ("&", true)],
-    .leftMiddleFinger: [
-        ("8", false),
-        ("*", true),
-        (",", false),
-        ("<", true)],
-    .leftRingFinger: [
-        ("9", false),
-        ("(", true),
-        (".", false),
-        (">", true)],
-    .leftPinky: [
-        ("0", false),
-        (")", true),
-        ("-", false),
-        ("_", true),
-        ("=", false),
-        ("+", true),
-        ("[", false),
-        ("{", true),
-        ("]", false),
-        ("}", true),
-        ("\\", false),
-        ("|", true),
-        (";", false),
-        (":", true),
-        ("'", false),
-        ("\"", true),
-        ("/", false),
-        ("?", true)]
-]
-
 // https://www.prepressure.com/fonts/basics/character-names
-let charachterHints: [Character: String] = [
-    /* small symbols */
-    "~": "tilde",
-    "^": "circumflex" /* caret ?! */,
-    "_": "underscore",
-    "-": "minus",
-    "`": "backtick",
-    "'": "single quote",
-    "\"": "double quote",
-    ",": "comma",
-    ".": "dot",
 
-    "/": "slash",
-    "\\": "backslash",
-    "|": "pipe",
-    
-    ":": "colon",
-    ";": "semicolon",
+// if the shift key or another key is pressed can be different in differnt keyboard layouts
+// needs to be refactored in the future
 
-    "1": "one",
-    "2": "two",
-    "3": "three",
-    "4": "four",
-    "5": "five",
-    "6": "six",
-    "7": "seven",
-    "8": "eight",
-    "9": "nine",
-    "0": "zero",
-
-    "!": "exclamation mark",
-    "?": "question mark",
-    "@": "at",
-    "#": "hash" /* or pound ?!*/,
-    "$": "dollar",
-    "%": "percent",
-    "&": "ampersand",
-
-    "*": "multiplication",
-    "=": "equal",
-    "+": "plus",
-
-    "(": "left parenthesis",
-    ")": "right parenthesis",
-    "{": "left curly bracket",
-    "}": "right curly bracket",
-    "[": "left bracket",
-    "]": "right bracket",
-
-    "<": "smaller than",
-    ">": "greater than"
+// current US Layout QWERTY
+let fingerCharactersShift: [FingerNames: [(Character, Bool, String)]] = [
+    .rightPinky: [
+        ("`", false, "backtick"),
+        ("~", true, "tilde"),
+        ("1", false, "one"),
+        ("!", true, "exclamation mark")],
+    .rightRingFinger: [
+        ("2", false, "two"),
+        ("@", true, "at")],
+    .rightMiddleFinger: [
+        ("3", false, "three"),
+        ("#", true, "hash")],
+    .rightIndexFinger: [
+        ("4", false, "four"),
+        ("$", true, "dollar"),
+        ("5", false, "five"),
+        ("%", true, "percent")],
+    .leftIndexFinger: [
+        ("6", false, "six"),
+        ("^", true, "caret"), /* circumflex */
+        ("7", false, "seven"),
+        ("&", true, "ampersand")],
+    .leftMiddleFinger: [
+        ("8", false, "eight"),
+        ("*", true, "multiplication"),
+        (",", false, "comma"),
+        ("<", true, "smaller than")],
+    .leftRingFinger: [
+        ("9", false, "nine"),
+        ("(", true, "left parenthesis"),
+        (".", false, "dot"),
+        (">", true, "greater than")],
+    .leftPinky: [
+        ("0", false, "zero"),
+        (")", true, "right parenthesis"),
+        ("-", false, "minus"),
+        ("_", true, "underscore"),
+        ("=", false, "equal"),
+        ("+", true, "plus"),
+        ("[", false, "left bracket"),
+        ("{", true, "left curly bracket"),
+        ("]", false, "right bracket"),
+        ("}", true, "right curly bracket"),
+        ("\\", false, "backslash"),
+        ("|", true, "pipe"),
+        (";", false, "semicolon"),
+        (":", true, "colon"),
+        ("'", false, "single quote"),
+        ("\"", true, "double quote"),
+        ("/", false, "slash"),
+        ("?", true, "question mark")]
 ]
