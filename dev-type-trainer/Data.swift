@@ -41,6 +41,12 @@ let plainColorMatcher: [Int: Color] = [
     7: .purple
 ]
 
+/*
+    P = Pinky Finger
+    R = Ring Finger
+    M = Middle Finger
+    I = Index Finger
+ */
 let fingerMatcher: [Int: String] = [
     0: "P",
     1: "R",
