@@ -87,6 +87,10 @@ struct ContentView: View {
             // we don't want to see that button, we just want it's modifier keys
             .opacity(0)
             .keyboardShortcut(KeyEquivalent(character), modifiers: [])
+
+            Text("Alpha version 0.0.2 - by Denise Nepraunig")
+                .font(.footnote)
+                .foregroundColor(.gray)
         }
         .frame(minWidth: 400, idealWidth: 400, maxWidth: 400, minHeight: 500, idealHeight: 500, maxHeight: 500, alignment: .center)
         .onAppear {
