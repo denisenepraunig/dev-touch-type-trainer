@@ -63,21 +63,21 @@ let fingerCharactersShift: [FingerNames: [(Character, Bool, String)]] = [
         ("`", false, "backtick"),
         ("~", true, "tilde"),
         ("1", false, "one"),
-        ("!", true, "exclamation mark")],
-    .rightRingFinger: [
+        ("!", true, "exclamation mark"),
         ("2", false, "two"),
         ("@", true, "at")],
-    .rightMiddleFinger: [
+    .rightRingFinger: [
         ("3", false, "three"),
         ("#", true, "hash")],
-    .rightIndexFinger: [
+    .rightMiddleFinger: [
         ("4", false, "four"),
-        ("$", true, "dollar"),
+        ("$", true, "dollar"),],
+    .rightIndexFinger: [
         ("5", false, "five"),
-        ("%", true, "percent")],
-    .leftIndexFinger: [
+        ("%", true, "percent"),
         ("6", false, "six"),
-        ("^", true, "caret"), /* circumflex */
+        ("^", true, "caret"), /* circumflex */],
+    .leftIndexFinger: [
         ("7", false, "seven"),
         ("&", true, "ampersand")],
     .leftMiddleFinger: [
